@@ -2,7 +2,7 @@ class Config(object):
   def __init__(self):
     self.learning_rate = 0.001
     self.batch_size = 128
-    self.win_size = 1001
+    self.win_size = 3001
     self.n_traces = 3
     self.display_step = 50
     self.n_threads = 2
