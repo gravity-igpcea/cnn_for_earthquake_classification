@@ -1,6 +1,6 @@
 We use ConvNetQuake to train our own model for events classification based on the wenchuan aftershocks and use it to classify earthquakes from one day continous waveform(2008-07-25) of one station (MXI).
 
-![The data of MXI,2008-07-25,and marked events](./data/XX.MXI_dayplot_0.png),etc
+![The data of MXI,2008-07-25,and marked events](./XX.MXI_dayplot_0.png),etc
 
 ConvNetQuake
 =============
