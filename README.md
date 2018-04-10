@@ -11,11 +11,6 @@ Perol., T, M. Gharbi and M. Denolle. Convolutional Neural Network for Earthquake
 * Download repository
 * Install dependencies: `pip install -r requirements.txt`
 * Add directory to python path: `./setpath.sh`
-* Run tests: `./runtests.sh` (THIS NEEDS TO BE EXTENDED)
-* Download the [data](https://www.dropbox.com/sh/3p9rmi1bcpvnk5k/AAAV8n9VG_e0QXOpoofsSH0Ma?dl=0) (roughly 70 Gb) and symlink to `data` 
-`ln -s data Downloads/data`
-* Download the [pre-trained models](https://www.dropbox.com/sh/t9dj8mmfx1fmxfa/AABSJQke8Ao6wfRnKMvQXipta?dl=0) and symlink to `models` 
-`ln -s models Downloads/models`
 
 ## Data
 
