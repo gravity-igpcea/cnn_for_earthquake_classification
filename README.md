@@ -46,4 +46,4 @@ It proved using overlapping windows will get better results,however,the events w
 #lists = np.arange(0,30,5)
 " in predict_from_stream.py
 
-![we merge all our identified slices with prob>0.1 and plot] (./XX.MXI_dayplot.png)
+![we merge all our identified slices with prob>0.1 and plot](./XX.MXI_dayplot.png)
