@@ -1,9 +1,10 @@
 
 
-![The data of MXI,2008-07-25,and marked events](./XX.MXI_dayplot_0.png),etc
-
+![The data of MXI,2008-07-25,and marked events](./XX.MXI_dayplot_origin_data.png)
+![All CNN identified slices with prob>0.1 merged and plot,abosolute ampitude](./XX.MXI_dayplot_cnn.png),etc
+![All CNN identified slices with prob>0.1 merged and plot,normalized ampitude](./XX.MXI_dayplot_norm_cnn.png)
 Using ConvNetQuake to train model for events classification based on wenchuan aftershocks
-=============
+============= 
 
 We use ConvNetQuake to train our own model for events classification based on the wenchuan aftershocks and use it to classify earthquakes from one day continous waveform(2008-07-25) of one station (MXI).
 
@@ -50,4 +51,4 @@ It proved using overlapping windows will get better results,however,the events w
 #lists = np.arange(0,30,5)
 " in predict_from_stream.py
 
-![we merge all our identified slices with prob>0.1 and plot](./XX.MXI_dayplot.png)
+
