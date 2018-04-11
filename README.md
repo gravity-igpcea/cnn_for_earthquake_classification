@@ -39,7 +39,7 @@ The directory `trained_model` contains:
 
 ## Detecting events in continuous waveform data
 
-### From .mseed
+### From mseed
 
 ./bin/predict_from_stream.py --stream_path data --checkpoint_dir trained_model/ConvNetQuake  --n_clusters 2 --window_size 30 --window_step 31 --output predict_MXI_one_day --plot --save_sac
 
@@ -50,8 +50,11 @@ It will generate a dir "predict_MXI_one_day",which contains:
 * `viz_not`: the image of noise,notice the  higher prob,the more likely it is an events,actually when the prob>0.1 there is a large chance it is an event. 
 * `sac`: the slice data of viz
 
+## Using overlapping windows
 It proved using overlapping windows will get better results,however,the events will be identified more than once,you can choose the one with highest probility.To run,just uncomment "
+
 #lists = np.arange(0,30,5)
+
 " in predict_from_stream.py
 
 
