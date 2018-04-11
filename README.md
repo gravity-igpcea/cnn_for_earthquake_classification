@@ -1,8 +1,4 @@
 
-
-![The data of MXI,2008-07-25,and marked events](./XX.MXI_dayplot_origin_data.png)
-![All CNN identified slices with prob>0.1 merged and plot,abosolute ampitude](./XX.MXI_dayplot_cnn.png),etc
-![All CNN identified slices with prob>0.1 merged and plot,normalized ampitude](./XX.MXI_dayplot_norm_cnn.png)
 Using ConvNetQuake to train model for events classification based on wenchuan aftershocks
 ============= 
 
@@ -11,6 +7,9 @@ We use ConvNetQuake to train our own model for events classification based on th
 For  ConvNetQuake refer to:
 Perol., T, M. Gharbi and M. Denolle. Convolutional Neural Network for Earthquake detection and location. [preprint arXiv:1702.02073](https://arxiv.org/abs/1702.02073), 2017.
 
+![The data of MXI,2008-07-25,and marked events](./XX.MXI_dayplot_origin_data.png)
+![All CNN identified slices with prob>0.1 merged and plot,abosolute ampitude](./XX.MXI_dayplot_cnn.png)
+![All CNN identified slices with prob>0.1 merged and plot,normalized ampitude](./XX.MXI_dayplot_norm_cnn.png)
 ## Installation
 * Download repository
 * Install dependencies: `pip install -r requirements.txt`
@@ -19,7 +18,7 @@ Perol., T, M. Gharbi and M. Denolle. Convolutional Neural Network for Earthquake
 ## Data
 
 Our model is trained on data from wenchuan aftershocks. 
-Download the [data](https://www.dropbox.com/sh/3p9rmi1bcpvnk5k/AAAV8n9VG_e0QXOpoofsSH0Ma?dl=0) (roughly 110 Mb) and symlink to data ln -s data Downloads/data
+Download the [data](https://pan.baidu.com/s/1N_gwRC95qwQHnfNX94cdgQ) (roughly 110 Mb) and symlink to data ln -s data Downloads/data
 The continuous waveform data is in ./data
 
 The `data` directory contains:
