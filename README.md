@@ -6,9 +6,11 @@ We use ConvNetQuake to train our own model for events classification based on th
 
 For  ConvNetQuake refer to:
 Perol., T, M. Gharbi and M. Denolle. Convolutional Neural Network for Earthquake detection and location. [preprint arXiv:1702.02073](https://arxiv.org/abs/1702.02073), 2017.
-
+The data of MXI,2008-07-25,and marked events
 ![The data of MXI,2008-07-25,and marked events](./XX.MXI_dayplot_origin_data.png)
+[All CNN identified slices with prob>0.1 merged and plot,abosolute ampitude
 ![All CNN identified slices with prob>0.1 merged and plot,abosolute ampitude](./XX.MXI_dayplot_cnn.png)
+All CNN identified slices with prob>0.1 merged and plot,normalized ampitude
 ![All CNN identified slices with prob>0.1 merged and plot,normalized ampitude](./XX.MXI_dayplot_norm_cnn.png)
 ## Installation
 * Download repository
@@ -17,7 +19,7 @@ Perol., T, M. Gharbi and M. Denolle. Convolutional Neural Network for Earthquake
 
 ## Data
 
-Our model is trained on data from wenchuan aftershocks. 
+
 Download the [data](https://pan.baidu.com/s/1N_gwRC95qwQHnfNX94cdgQ) (roughly 110 Mb) and symlink to data ln -s data Downloads/data
 The continuous waveform data is in ./data
 
@@ -28,10 +30,9 @@ The `data` directory contains:
 * `XX.MXI_dayplot_[0-64800].png`: marked earthquakes of the day 
 
 ## Trained model
-
+Our model is trained on data from wenchuan aftershocks using over 20000 earthquakes slices (30s) and over 60000 slices of noises (30s) 
 The directory `trained_model` contains:
-* `convnetquake`: trained model using over 20000 earthquakes slices (30s) and over 60000 slices of noises (30s)
-
+* `convnetquake`: trained model 
 
 ## Detecting events in continuous waveform data
 
