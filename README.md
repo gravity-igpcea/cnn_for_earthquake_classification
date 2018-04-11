@@ -1,10 +1,13 @@
-We use ConvNetQuake to train our own model for events classification based on the wenchuan aftershocks and use it to classify earthquakes from one day continous waveform(2008-07-25) of one station (MXI).
+
 
 ![The data of MXI,2008-07-25,and marked events](./XX.MXI_dayplot_0.png),etc
 
-ConvNetQuake
+Using ConvNetQuake to train model for events classification based on wenchuan aftershocks
 =============
 
+We use ConvNetQuake to train our own model for events classification based on the wenchuan aftershocks and use it to classify earthquakes from one day continous waveform(2008-07-25) of one station (MXI).
+
+For  ConvNetQuake refer to:
 Perol., T, M. Gharbi and M. Denolle. Convolutional Neural Network for Earthquake detection and location. [preprint arXiv:1702.02073](https://arxiv.org/abs/1702.02073), 2017.
 
 ## Installation
@@ -15,6 +18,7 @@ Perol., T, M. Gharbi and M. Denolle. Convolutional Neural Network for Earthquake
 ## Data
 
 Our model is trained on data from wenchuan aftershocks. 
+Download the [data](https://www.dropbox.com/sh/3p9rmi1bcpvnk5k/AAAV8n9VG_e0QXOpoofsSH0Ma?dl=0) (roughly 110 Mb) and symlink to data ln -s data Downloads/data
 The continuous waveform data is in ./data
 
 The `data` directory contains:
