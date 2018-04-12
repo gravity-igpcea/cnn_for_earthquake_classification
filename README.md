@@ -15,13 +15,16 @@ All CNN identified slices with prob>0.1 merged and plot,abosolute ampitude
 
 All CNN identified slices with prob>0.1 merged and plot,normalized ampitude
 ![All CNN identified slices with prob>0.1 merged and plot,normalized ampitude](./XX.MXI_dayplot_norm_cnn.png)
+
+We also use STA/LTA Algorithm (in obspy) for a comparison,with a threshold value 5 and 2, split the origin data into 120s overlapping slices:
+![STA/LTA Algorithm](./XX.MXI_dayplot_obspy.png)
+
 ## Installation
 * Download repository
 * Install dependencies: `pip install -r requirements.txt`
 * Add directory to python path: `./setpath.sh`
 
-## Data
-
+## Data of the continous waveform
 
 Download the [data](https://pan.baidu.com/s/1N_gwRC95qwQHnfNX94cdgQ) (roughly 110 Mb) and symlink to data ln -s data Downloads/data
 The continuous waveform data is in ./data
@@ -32,8 +35,11 @@ The `data` directory contains:
 * `merge_dayplot.py`: a merge script
 * `XX.MXI_dayplot_[0-64800].png`: marked earthquakes of the day 
 
+## Train data
+We provide a catalog ("MXI_catalog_for_train.txt") for train dataset,you can send a request to [CENC](http://news.ceic.ac.cn/index.html?time=1523511012) or [dmc](http://www.seisdmc.ac.cn/) and download the related waveform data.
+
 ## Trained model
-Our model is trained on data from wenchuan aftershocks using over 20000 earthquakes slices (30s) and over 60000 slices of noises (30s) 
+We also privided a model which was trained on over 20000 earthquakes slices (30s) and over 60000 slices of noises (30s) 
 The directory `trained_model` contains:
 * `convnetquake`: trained model 
 
@@ -57,4 +63,5 @@ It proved using overlapping windows will get better results,however,the events w
 
 " in predict_from_stream.py
 
-
+## A hand-picked catalog for benchmark
+We provide a hand-picked catalog(`MXI_20080725_hand_pick_PS.txt`) for users to compare with their own results.A qulified trained model should be able to find out all the earthquakes in this catalog.
