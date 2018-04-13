@@ -16,7 +16,7 @@ All CNN identified slices with prob>0.1 merged and plot,abosolute ampitude
 All CNN identified slices with prob>0.1 merged and plot,normalized ampitude
 ![All CNN identified slices with prob>0.1 merged and plot,normalized ampitude](./XX.MXI_dayplot_norm_cnn.png)
 
-We also use STA/LTA Algorithm (in obspy) for a comparison,with a threshold value 5 and 2, split the origin data into 120s overlapping slices:
+We also use STA/LTA Algorithm (in obspy) for a comparison:
 ![STA/LTA Algorithm](./XX.MXI_dayplot_obspy.png)
 
 ## Installation
