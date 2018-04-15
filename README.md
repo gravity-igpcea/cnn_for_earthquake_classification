@@ -7,17 +7,20 @@ We use ConvNetQuake to train our own model for events classification based on th
 For  ConvNetQuake refer to:
 Perol., T, M. Gharbi and M. Denolle. Convolutional Neural Network for Earthquake detection and location. [preprint arXiv:1702.02073](https://arxiv.org/abs/1702.02073), 2017.
 
-The data of MXI,2008-07-25,and marked events
+The continious wavaform of MXI,2008-07-25
 ![The data of MXI,2008-07-25,and marked events](./XX.MXI_dayplot_origin_data.png)
 
-All CNN identified slices with prob>0.1 merged and plot,abosolute ampitude
-![All CNN identified slices with prob>0.1 merged and plot,abosolute ampitude](./XX.MXI_dayplot_cnn.png)
+The hand picked events:
+![The data of MXI,2008-07-25,and marked events](./XX.MXI_dayplot_hand_picks.png)
 
-All CNN identified slices with prob>0.1 merged and plot,normalized ampitude
-![All CNN identified slices with prob>0.1 merged and plot,normalized ampitude](./XX.MXI_dayplot_norm_cnn.png)
+All CNN identified slices with prob>0.1,abosolute ampitude
+![All CNN identified slices with prob>0.1 merged and plot,abosolute ampitude](./XX.MXI_dayplot_cnn.png)
 
 We also use STA/LTA Algorithm (in obspy) for a comparison:
 ![STA/LTA Algorithm](./XX.MXI_dayplot_obspy.png)
+
+All CNN identified slices with prob>0.1,normalized ampitude
+![All CNN identified slices with prob>0.1 merged and plot,normalized ampitude](./XX.MXI_dayplot_norm_cnn.png)
 
 ## Installation
 * Download repository
@@ -34,7 +37,7 @@ The `data` directory contains:
 * `dayplot.py`: a script to plot the continious waveform
 * `merge_dayplot.py`: a merge script
 * `XX.MXI_dayplot_[0-64800].png`: marked earthquakes of the day 
-
+* `XX.MXI_dayplot_hand_picks.png`:hand picked events
 ## Train data
 We provide a catalog ("MXI_catalog_for_train.txt") for train dataset,you can send a request to [CENC](http://news.ceic.ac.cn/index.html?time=1523511012) or [dmc](http://www.seisdmc.ac.cn/) and download the related waveform data.
 
