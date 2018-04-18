@@ -2,7 +2,7 @@
 Using ConvNetQuake to train model for events classification based on wenchuan aftershocks
 ============= 
 
-We use ConvNetQuake to train our own model for events classification based on the wenchuan aftershocks and use it to classify earthquakes from one day continous waveform(2008-07-25) of one station (MXI).
+We use ConvNetQuake to train our own model for events classification based on the wenchuan aftershocks and use it to classify earthquakes from one day continous waveform(2008-07-25) of one station (MXI).In this day there are about 43 "obvious" earthquakes and more than 170 "trival" earthquakes (see the image below).We use ConvNetQuake and STA/LTA to identify them automatically,both two methods can detect all the "obvious" earthquakes,but CNN win STA/lTA in detecting "trival" earthquakes,besides,CNN has less false recognition than STA/LTA.
 
 For  ConvNetQuake refer to:
 Perol., T, M. Gharbi and M. Denolle. Convolutional Neural Network for Earthquake detection and location. [preprint arXiv:1702.02073](https://arxiv.org/abs/1702.02073), 2017.
@@ -11,12 +11,12 @@ The continious wavaform of MXI,2008-07-25
 ![The data of MXI,2008-07-25,and marked events](./XX.MXI_dayplot_origin_data.png)
 
 The hand picked events:
-![The data of MXI,2008-07-25,and marked events](./XX.MXI_dayplot_hand_picks.png)
+![The hand picked events](./XX.MXI_dayplot_hand_picks.png)
 
 All CNN identified slices with prob>0.1,abosolute ampitude
 ![All CNN identified slices with prob>0.1 merged and plot,abosolute ampitude](./XX.MXI_dayplot_cnn.png)
 
-We also use STA/LTA Algorithm (in obspy) for a comparison:
+We also use classic STA/LTA Algorithm  for a comparison:
 ![STA/LTA Algorithm](./XX.MXI_dayplot_obspy.png)
 
 All CNN identified slices with prob>0.1,normalized ampitude
@@ -38,8 +38,11 @@ The `data` directory contains:
 * `merge_dayplot.py`: a merge script
 * `XX.MXI_dayplot_[0-64800].png`: marked earthquakes of the day 
 * `XX.MXI_dayplot_hand_picks.png`:hand picked events
+
 ## Train data
+
 We provide a catalog ("MXI_catalog_for_train.txt") for train dataset,you can send a request to [CENC](http://news.ceic.ac.cn/index.html?time=1523511012) or [dmc](http://www.seisdmc.ac.cn/) and download the related waveform data.
+We also provided a train dataset with about 2000 events samples,please download from  [mz](https://pan.baidu.com/s/11JlOYsqJR82Wk3N93klfcg)
 
 ## Trained model
 We also privided a model which was trained on over 20000 earthquakes slices (30s) and over 60000 slices of noises (30s) 
@@ -66,5 +69,9 @@ It proved using overlapping windows will get better results,however,the events w
 
 " in predict_from_stream.py
 
+## the classic sta/lta Algorithm for compare
+./trigger_by_sta_lta.py --stream_path data --output out_STA_LTA_MXI  --save_mseed --window_step 20
 ## A hand-picked catalog for benchmark
 We provide a hand-picked catalog(`MXI_20080725_hand_pick_PS.txt`) for users to compare with their own results.A qulified trained model should be able to find out all the earthquakes in this catalog.
+
+
