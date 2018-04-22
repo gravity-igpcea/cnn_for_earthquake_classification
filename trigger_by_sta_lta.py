@@ -25,6 +25,11 @@ def preprocess_stream(stream):
     return stream
 def main(args):
     st1= Stream()
+<<<<<<< HEAD
+=======
+    st2= Stream()
+    st3= Stream()
+>>>>>>> cc97cd94a4e720f5b877dfefb44fa8ccb2fd3458
     threechannels = Stream()
     times_csv = {}
     times_csv = {"start_time": [],
@@ -35,6 +40,7 @@ def main(args):
     stream_path = args.stream_path
 
     stream_files = [file for file in os.listdir(stream_path) if
+<<<<<<< HEAD
                     fnmatch.fnmatch(file, 'XX.MXI.2008207000000.mseed')]
 #for file in glob.glob('/media/zm/Elements/after/BHZ/*.BHZ'):
     for file in stream_files:
@@ -47,6 +53,30 @@ def main(args):
             tr2 = st1[1]
             tr3 = st1[2]
             threechannels = st1
+=======
+                    fnmatch.fnmatch(file, 'XX.MXI.2008207000000.BHZ')]
+#for file in glob.glob('/media/zm/Elements/after/BHZ/*.BHZ'):
+    for file in stream_files:
+        stream_path1 = os.path.join(stream_path, file)
+        print "+ Loading Stream {}".format(file)
+    #    st = read("./*Z.sac")
+        file1 = re.sub('BHZ', 'BHE', str(stream_path1))
+        file2 = re.sub('BHZ', 'BHN', str(stream_path1))
+        if os.path.isfile(file1) and os.path.isfile(file2):
+            print(file1)
+            st1 = read(stream_path1)
+            st2 = read(file1)
+            st3 = read(file2)
+            st1 = preprocess_stream(st1)
+            st2 = preprocess_stream(st2)
+            st3 = preprocess_stream(st3)
+            tr1 = st1[0]
+            tr2 = st2[0]
+            tr3 = st3[0]
+            threechannels = st1
+            threechannels += st2
+            threechannels += st3
+>>>>>>> cc97cd94a4e720f5b877dfefb44fa8ccb2fd3458
             msg = "%s %s %s" % (tr1.stats.station, str(tr1.stats.starttime), str(tr1.stats.endtime))
             print(msg)
     #    print(tr1.stats)
@@ -59,9 +89,15 @@ def main(args):
                 mseed_dir = os.path.join(args.output, "mseed")
                 if  os.path.exists(mseed_dir):
                     shutil.rmtree(mseed_dir)
+<<<<<<< HEAD
                 os.makedirs(mseed_dir)
                 output_mseed = os.path.join(mseed_dir,tr1.stats.station +"start.mseed")
                 st1.slice(tr1.stats.starttime, tr1.stats.starttime+args.window_size).write(output_mseed, format="mseed")
+=======
+                    os.makedirs(mseed_dir)
+                output_mseed = os.path.join(mseed_dir,tr1.stats.station +"start.mseed")
+                threechannels.slice(tr1.stats.starttime, tr1.stats.starttime+args.window_size).write(output_mseed, format="mseed")
+>>>>>>> cc97cd94a4e720f5b877dfefb44fa8ccb2fd3458
             for t3 in range(int(t1),int(t2),args.window_step):
                 t = UTCDateTime(t3)
                 #print("Cut a slice at time:",t,tr1.stats.station,tr1.stats.sac.stlo, tr1.stats.sac.stla,str(file))
@@ -142,6 +178,11 @@ def main(args):
                                                                mseed_files.split(".mseed")[0]+'.png'))
             threechannels.clear()
             st1.clear()
+<<<<<<< HEAD
+=======
+            st2.clear()
+            st3.clear()
+>>>>>>> cc97cd94a4e720f5b877dfefb44fa8ccb2fd3458
 
     df = pd.DataFrame.from_dict(times_csv)
     print (df.shape[0])

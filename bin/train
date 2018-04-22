@@ -55,20 +55,32 @@ def main(args):
     }
 
   samples = {
+<<<<<<< HEAD
     "data": tf.concat([pos_samples["data"],neg_samples["data"]],0),
     "cluster_id" : tf.concat([pos_samples["cluster_id"],neg_samples["cluster_id"]],0)
+=======
+    "data": tf.concat(0,[pos_samples["data"],neg_samples["data"]]),
+    "cluster_id" : tf.concat(0,[pos_samples["cluster_id"],neg_samples["cluster_id"]])
+>>>>>>> cc97cd94a4e720f5b877dfefb44fa8ccb2fd3458
     }
 
   # model
   model = models.get(args.model, samples,cfg, args.checkpoint_dir, is_training=True)
 
+<<<<<<< HEAD
  
+=======
+>>>>>>> cc97cd94a4e720f5b877dfefb44fa8ccb2fd3458
   # train loop
   model.train(
     args.learning_rate,
     resume=args.resume,
     profiling=args.profiling,
+<<<<<<< HEAD
     summary_step=10)
+=======
+    summary_step=10) 
+>>>>>>> cc97cd94a4e720f5b877dfefb44fa8ccb2fd3458
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()
