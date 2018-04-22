@@ -7,6 +7,8 @@ We use ConvNetQuake to train our own model for events classification based on th
 For  ConvNetQuake refer to:
 Perol., T, M. Gharbi and M. Denolle. Convolutional Neural Network for Earthquake detection and location. [preprint arXiv:1702.02073](https://arxiv.org/abs/1702.02073), 2017.
 
+赵明,陈石,Dave.A.Yuen,基于深度学习卷积神经网络的地震波形自动分类与识别,地球物理学报，in review
+
 The continious wavaform of MXI,2008-07-25
 ![The data of MXI,2008-07-25,and marked events](./XX.MXI_dayplot_origin_data.png)
 
