@@ -9,6 +9,10 @@ Perol., T, M. Gharbi and M. Denolle. Convolutional Neural Network for Earthquake
 
 赵明,陈石,Dave.A.Yuen,基于深度学习卷积神经网络的地震波形自动分类与识别,地球物理学报，in review
 
+A video tutorial can be found at:
+
+[How to detect earthquake automatically using CNN](https://tianchi.aliyun.com/forum/videoStream.html?spm=5176.11409386.0.0.53a1311fQtoscI&postsId=4929#postsId=4929)
+
 The continious wavaform of MXI,2008-07-25
 ![The data of MXI,2008-07-25,and marked events](./XX.MXI_dayplot_origin_data.png)
 
