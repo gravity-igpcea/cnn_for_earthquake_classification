@@ -30,7 +30,8 @@ All CNN identified slices with prob>0.1,normalized ampitude
 
 ## Installation
 * Download repository
-* Install dependencies: `pip install -r requirements.txt`
+* Install dependencies: `pip install -r requirements.txt.b`
+* if it doesn't work,try: `pip install -r requirements.txt`
 * Add directory to python path: `./setpath.sh`
 
 ## Data of the continous waveform
