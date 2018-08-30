@@ -42,6 +42,32 @@ flags.DEFINE_boolean("save_mseed",False,
                      "save the windows in mseed format")
 FLAGS = flags.FLAGS
 
+def Bandpass(data, flp, fhp, dt, n):
+    #  Butterworth Acausal Bandpass Filter
+    #
+    #   Syntax:
+    #          x_f = bandpass(c, flp, fhi, dt, n)
+    #
+    #   Input:
+    #            x = input time series
+    #          flp = low-pass corner frequency in Hz
+    #          fhi = high-pass corner frequency in Hz
+    #           dt = sampling interval in second
+    #            n = order
+    #
+    #   Output:
+    #        x_f = bandpass filtered signal
+    fs = 1/dt              # Nyquist frequency
+    b, a = Butter_Bandpass(flp, fhp, fs, order=n)
+    x_f = filtfilt(b, a, data, padlen = 3*(max(len(b), len(a)) - 1))
+    return x_f
+
+def Butter_Bandpass(lowcut, highcut, fs, order=4):
+    nyq = 0.5 * fs
+    low = lowcut / nyq
+    high = highcut / nyq
+    b, a = butter(order, [low, high], btype='band')
+    return b, a
 
 def distance_to_station(lat, long, depth):
     # station GPS coordinates
@@ -50,17 +76,56 @@ def distance_to_station(lat, long, depth):
     depth0 = -0.333
     # return distance of the event to the station
     return distance(long, lat, depth, long0, lat0, depth0)
+##add by mingzhao,2017/12/2
+def filter_small_ampitude(st_event,n_samples):
+    ampl_e = max(abs(st_event[0].data))
+    ampl_n = max(abs(st_event[1].data))
+    ampl_z = max(abs(st_event[2].data))
+    a_e = 1.0 * len(filter(lambda x: -5<= x <= 5, st_event[0].data)) / n_samples
+    a_n = 1.0 * len(filter(lambda x: -5<= x <= 5, st_event[1].data)) / n_samples
+    a_z = 1.0 * len(filter(lambda x: -5<= x <= 5, st_event[2].data)) / n_samples
+   # print (87,a_e,a_n,a_z)
+    return a_e,a_n,a_z
 
 
+def remove_repeat(st_event,n_samples):
+    dic={}
+    a=[]
+    for i in range(3):
+        for item in st_event[i].data:
+            if item in dic.keys():
+                dic[item]+=1
+            else:
+                dic[item]=1
+        mm=max(dic.values())
+        a.append(1.0 * mm / n_samples)
+    #print (a)
+    return a
 def preprocess_stream(stream):
     stream = stream.detrend('constant')
-    return stream.normalize()
+    ##add by mingzhao,2017/12/2
+    #stream =stream.filter('bandpass', freqmin=0.5, freqmax=20)
+    ##########
+    return stream
 
-
-def filter_catalog(cat):
+#def draw_bounding_boxes:
+#    img_data=tf.image.resize_images(img_data,180,267,method=1)
+#    batched = tf.extend_dims(tf.image.convert_image_dtype(img_data,tf.float32),0)
+#    boxes=tf.constant([[[0.05,0.05,0.9,0.7],[0.35,0.47,0.5,0.56]]])
+#    result = tf.image.draw_bounding_boxes(batched,boxes)
+def filter_catalog(cat,stream_file):
+    import re
     # Filter around Guthrie sequence
-    cat = cat[(cat.latitude > 35.7) & (cat.latitude < 36)
-              & (cat.longitude > -97.6) & (cat.longitude < -97.2)]
+    #stlog = pd.read_csv('/home/zm/obspy/station_latlon.csv')
+    #m2 = re.search(stream_file.split(".")[1] ,stlog.name)
+
+    #cat = cat[(cat.latitude > 35.7) & (cat.latitude < 36)
+    #          & (cat.longitude > -97.6) & (cat.longitude < -97.2)]
+    #match stream_file,so that all the name of the stream_file contains the key word  will be matched,2017/12/07
+    m1=re.match('(\D+)', stream_file)
+    print m1.group()
+    cat = cat[(cat.stname == str(m1.group()))]
+   #           (cat.stname == str(stream_file)[:-1]))]
     return cat
 
 
@@ -96,10 +161,10 @@ def main(_):
 
     # Load Catalog
     print "+ Loading Catalog"
-    cat = load_catalog(FLAGS.catalog)
-    cat = filter_catalog(cat)
 
     for stream_file in stream_files:
+        cat = load_catalog(FLAGS.catalog)
+        #cat = filter_catalog(cat,stream_file.split(".mseed")[0])
 
         # Load stream
         stream_path = os.path.join(FLAGS.stream_dir, stream_file)
@@ -116,9 +181,9 @@ def main(_):
         filtered_catalog = cat[
             ((cat.utc_timestamp >= start_date)
              & (cat.utc_timestamp < end_date))]
-
+        #print(1111, cat)
         # Propagation time from source to station
-        travel_time = get_travel_time(filtered_catalog)
+        #travel_time = get_travel_time(filtered_catalog)
 
         # Write event waveforms and cluster_id in .tfrecords
         output_name = stream_file.split(".mseed")[0] + ".tfrecords"
@@ -128,39 +193,55 @@ def main(_):
         # Loop over all events in the considered stream
         for event_n in range(filtered_catalog.shape[0]):
             event_time = filtered_catalog.utc_timestamp.values[event_n]
-            event_time += travel_time[event_n]
+           # event_time += travel_time[event_n]
             st_event = stream.slice(UTCDateTime(event_time),
                                     UTCDateTime(event_time) + FLAGS.window_size).copy()
             cluster_id = filtered_catalog.cluster_id.values[event_n]
+            #cluster_id =1
             n_traces = len(st_event)
-            # If there is not trace skip this waveform
+            # If there is no trace skip this waveform
             if n_traces == 0:
                 continue
+
             n_samples = len(st_event[0].data)
             n_pts = st_event[0].stats.sampling_rate * FLAGS.window_size + 1
             if (len(st_event) == 3) and (n_pts == n_samples):
                 # Write tfrecords
-                writer.write(st_event, cluster_id)
+                # use filter_small_ampitude to get rid of super small amplitude,2017/12/6
+                ampl_e,ampl_n,ampl_z=filter_small_ampitude(st_event,n_samples)
+                if ampl_e > 0.3 or ampl_n > 0.3 or ampl_z > 0.3:
+                    continue
+                a = remove_repeat(st_event, n_samples)
+                if a[0] > 0.3 or a[1] > 0.3 or a[2] > 0.3:
+                    continue
+                writer.write(st_event.copy().resample(10).normalize(), cluster_id)
+                #writer.write(st_event.copy().resample(10).filter('bandpass', freqmin=0.5, freqmax=20).normalize(), cluster_id)
+                #print (len(st_event[0]))
                 # Save window and cluster_id
                 if FLAGS.save_mseed:
-                    output_label = "label_{}_lat_{:.3f}_lon_{:.3f}.mseed".format(
-                                    cluster_id,
-                                    filtered_catalog.latitude.values[event_n],
-                                    filtered_catalog.longitude.values[event_n])
+                    output_label = "{}_{}.mseed".format(st_event[0].stats.station,
+                                                        str(st_event[0].stats.starttime).replace(':', '_'))
+
                     output_mseed_dir = os.path.join(FLAGS.output_dir,"mseed")
                     if not os.path.exists(output_mseed_dir):
                         os.makedirs(output_mseed_dir)
                     output_mseed = os.path.join(output_mseed_dir,output_label)
                     st_event.write(output_mseed,format="MSEED")
+
                 # Plot events
                 if FLAGS.plot:
-                    trace = st_event[0]
+                    trace = st_event[0].filter('bandpass', freqmin=0.5, freqmax=20)
+                    #trace = st_event[0]
                     viz_dir = os.path.join(
                         FLAGS.output_dir, "viz", stream_file.split(".mseed")[0])
                     if not os.path.exists(viz_dir):
                         os.makedirs(viz_dir)
                     trace.plot(outfile=os.path.join(viz_dir,
-                                                    "event_{}.png".format(event_n)))
+                                                    ####changed at 2017/11/25,use max cluster_prob instead of cluster_id
+                                                    #                "event_{}_cluster_{}.png".format(idx,cluster_id)))
+                                                    "event_{}_{}.png".format(st_event[0].stats.station,
+                                                                             str(st_event[0].stats.starttime).replace(
+                                                                                 ':', '_'))))
             else:
                 print "Missing waveform for event:", UTCDateTime(event_time)
 
