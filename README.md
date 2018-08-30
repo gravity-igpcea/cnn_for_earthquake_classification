@@ -51,7 +51,7 @@ The `data` directory contains:
 We provide a catalog ("MXI_catalog_for_train.txt") for train dataset,you can send a request to [CENC](http://news.ceic.ac.cn/index.html?time=1523511012) or [dmc](http://www.seisdmc.ac.cn/) and download the related waveform data.
 We also provided a train dataset with about 2000 events samples,please download from  [mz](https://pan.baidu.com/s/11JlOYsqJR82Wk3N93klfcg)
 
-##build your own dataset 
+## build your own dataset 
 
 For events:
  ./bin/preprocess/create_dataset_events.py --stream_dir stream/ --catalog MXI_catalog_for_dataset.csv --output_dir wenchuan_train_test/positive --save_mseed True --plot True
