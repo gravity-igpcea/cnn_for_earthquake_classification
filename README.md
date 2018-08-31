@@ -64,6 +64,15 @@ For noises:
  
  However,the stream data is quite large(1.6GB),and my baidu disk is full,so it is provided upon request.We strongly recommend you use your own data stream and catalog (just follow the format like MXI_catalog_for_dataset.csv) to build datasets.
 
+## Train
+
+./bin/train --dataset wenchuan_train_test --checkpoint_dir output/convnetquake --n_clusters 2
+
+
+## Tensorboard for real-time monitor
+
+tensorboard --logdir output/convnetquake/ConvNetQuake
+
 ## Trained model
 We also privided a model which was trained on over 20000 earthquakes slices (30s) and over 60000 slices of noises (30s) 
 The directory `trained_model` contains:
