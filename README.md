@@ -60,7 +60,7 @@ For events:
  
 For noises:
 
- ./bin/preprocess/create_dataset_noise.py --stream stream/XX.MXI.mseed --catalog MXI_catalog_for_dataset.csv --output_dir wenchuan_train_test/negative --max_windows=30000
+ ./bin/preprocess/create_dataset_noise.py --stream stream/XX.MXI.mseed --catalog  MXI_catalog_for_noise.csv --output_dir wenchuan_train_test/negative --max_windows=30000
  
  However,the stream data is quite large(1.6GB),and my baidu disk is full,so it is provided upon request.We strongly recommend you use your own data stream and catalog (just follow the format like MXI_catalog_for_dataset.csv) to build datasets.
 
