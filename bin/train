@@ -65,7 +65,7 @@ def main(args):
   model.train(
     args.learning_rate,
     resume=args.resume,
-    profiling=args.profiling
+    profiling=args.profiling,
     summary_step=10)
 
 if __name__ == '__main__':
