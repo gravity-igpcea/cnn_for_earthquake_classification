@@ -7,7 +7,8 @@ We use ConvNetQuake to train our own model for events classification based on th
 For  ConvNetQuake refer to:
 Perol., T, M. Gharbi and M. Denolle. Convolutional Neural Network for Earthquake detection and location. [preprint arXiv:1702.02073](https://arxiv.org/abs/1702.02073), 2017.
 
-赵明,陈石,Dave.A.Yuen,基于深度学习卷积神经网络的地震波形自动分类与识别,地球物理学报，in review
+赵明,陈石,Dave.A.Yuen,2019,基于深度学习卷积神经网络的地震波形自动分类与识别,地球物理学报，62(1),待刊
+Zhao M,Chen S,Dave Yuen. 2019. Waveform classification and seismic recognition by convolution neural network. Chinese J. Geophys. (in Chinese),62(1),in press.
 
 A video tutorial can be found at:
 
